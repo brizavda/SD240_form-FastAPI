@@ -2,6 +2,8 @@ from fastapi import FastAPI, UploadFile, File, Form
 from typing import Optional
 from pydantic import BaseModel
 import shutil
+import os #Para acceder a la ruta del home
+import uuid #generar un nombre aleatorio, unico
 
 # creación del servidor
 app = FastAPI()
@@ -34,6 +36,26 @@ usuarios = [{
     "domicilio": "Av. Simpre Viva"
 }]
 
+#Form(...) -> operador ellipsis
+@app.post("/fotos")
+async def guarda_foto(titulo:str=Form(None),descripcion:str=Form(...),foto:UploadFile=File(...)):
+    print("Titulo: ", titulo)
+    print("Descripción: ", descripcion)
+    home_usuario = os.path.expanduser("~") #home usuario
+    nombre_archivo = uuid.uuid4() #nombre en formato hexadecimal
+    extension_foto = os.path.splitext(foto.filename)[1]
+    ruta_imagen = f'{home_usuario}/fotos-ejemplo/{nombre_archivo}{extension_foto}'
+    print("Guardando la foto en ", ruta_imagen)
+    with open(ruta_imagen,"wb") as imagen:
+        contenido = await foto.read()
+        imagen.write(contenido)
+
+    respuesta = {
+        "Titulo" : titulo,
+        "Descripción" : descripcion,
+        "Ruta": ruta_imagen
+    }
+    return respuesta
 
 # decorator
 @app.get("/")
