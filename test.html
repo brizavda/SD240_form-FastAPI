@@ -2,23 +2,97 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Registro de Usuarios</title>
     <style>
-        div{margin:10px;}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Fondo azul claro */
+            color: #003366; /* Azul oscuro para texto */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            background-color: #ffffff; /* Fondo blanco */
+            border: 1px solid #003366; /* Borde azul oscuro */
+            border-radius: 8px;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            width: 300px;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #003366;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #003366; /* Azul oscuro */
+            color: #ffffff; /* Texto blanco */
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #00509e; /* Azul un poco más claro al pasar el mouse */
+        }
+
+        h1 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-    
-    <form method="post" action="http://localhost:8000/fotos" enctype="multipart/form-data"> 
-    <!--
-    <form method="post" action="http://localhost:8000/fotos">
-    -->
-        <div>Título:<input type="text" name="titulo" /></div>        
-        <div>Descripción<input type="text" name="descripcion" /></div>
-        
-        <div>Foto<input type="file" name="foto" /></div>
-    
-        <div><input type="submit" value="enviar" /></div>
+    <form method="post" action="http://localhost:8000/fotos" enctype="multipart/form-data">
+        <h1>Registro</h1>
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required />
+        </div>
+        <div>
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" name="direccion" required />
+        </div>
+        <div>
+            <label for="foto">Fotografía:</label>
+            <input type="file" id="foto" name="foto" accept="image/*" required />
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="vip" value="true" />
+                Usuario VIP
+            </label>
+        </div>
+        <div>
+            <input type="submit" value="Registrar" />
+        </div>
     </form>
 </body>
 </html>
